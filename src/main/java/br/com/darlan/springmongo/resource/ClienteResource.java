@@ -1,6 +1,7 @@
 package br.com.darlan.springmongo.resource;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.darlan.springmongo.ClienteDTO;
 import br.com.darlan.springmongo.domain.Cliente;
 import br.com.darlan.springmongo.service.ClienteService;
 
@@ -20,8 +22,9 @@ public class ClienteResource {
 
 	//ou @GetMapping
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Cliente>> findAll(){
+	public ResponseEntity<List<ClienteDTO>> findAll(){
 		List<Cliente> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<ClienteDTO> listDTO = list.stream().map(x -> new ClienteDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 }
