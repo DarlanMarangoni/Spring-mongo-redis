@@ -3,18 +3,24 @@ package br.com.darlan.springmongo.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Cliente implements Serializable{
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "cliente")
+public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
+	@Id
+	private String _id;
 	private String nome;
 	private String cpf;
-	private LocalDate dataNascimento;
+	private String dataNascimento;
 
-	public Cliente () {
-		
+	public Cliente() {
+
 	}
 
-	public Cliente(String nome, String cpf, LocalDate dataNascimento) {
+	public Cliente(String nome, String cpf, String dataNascimento) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -37,19 +43,27 @@ public class Cliente implements Serializable{
 		this.cpf = cpf;
 	}
 
-	public LocalDate getDataNascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
 	@Override
 	public String toString() {
 		String info = "Cpf: " + cpf;
-		info +=" Nome: " + nome;
-		info +=" Data de nascimento: " + dataNascimento;
+		info += " Nome: " + nome;
+		info += " Data de nascimento: " + dataNascimento;
 		return info;
 	}
 
@@ -77,5 +91,5 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }
