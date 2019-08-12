@@ -25,7 +25,6 @@ public class ClienteService {
 	}
 	
 	public Cliente findById(String id) {
-		System.out.println(id);
 		Optional<Cliente> cliente = repo.findById(id);
 		return cliente.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
@@ -38,5 +37,11 @@ public class ClienteService {
 	public Cliente fromDTO(ClienteDTO objDTO) {
 		return new Cliente(objDTO.getId(), objDTO.getNome(), 
 							objDTO.getCpf(), objDTO.getDataNascimento());
+	}
+	
+	@CacheEvict(cacheNames = "clientes", allEntries = true)
+	public void delete (String id) {
+		findById(id);
+		repo.deleteById(id);;
 	}
 }
