@@ -34,14 +34,28 @@ public class ClienteService {
 		return repo.insert(obj);
 	}
 	
-	public Cliente fromDTO(ClienteDTO objDTO) {
-		return new Cliente(objDTO.getId(), objDTO.getNome(), 
-							objDTO.getCpf(), objDTO.getDataNascimento());
-	}
-	
 	@CacheEvict(cacheNames = "clientes", allEntries = true)
 	public void delete (String id) {
 		findById(id);
 		repo.deleteById(id);;
 	}
+	
+	@CacheEvict(cacheNames = "clientes", allEntries = true)
+	public Cliente update(Cliente obj) {
+		Cliente newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	private void updateData(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setCpf(obj.getCpf());	
+		newObj.setDataNascimento(obj.getDataNascimento());
+	}
+
+	public Cliente fromDTO(ClienteDTO objDTO) {
+		return new Cliente(objDTO.getId(), objDTO.getNome(), 
+							objDTO.getCpf(), objDTO.getDataNascimento());
+	}
+	
 }
