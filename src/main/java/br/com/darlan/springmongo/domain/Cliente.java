@@ -1,7 +1,6 @@
 package br.com.darlan.springmongo.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +10,7 @@ public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String _id;
+	private String id;
 	private String nome;
 	private String cpf;
 	private String dataNascimento;
@@ -20,8 +19,8 @@ public class Cliente implements Serializable {
 
 	}
 
-	public Cliente(String nome, String cpf, String dataNascimento) {
-		super();
+	public Cliente(String id, String nome, String cpf, String dataNascimento) {
+		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
@@ -51,12 +50,12 @@ public class Cliente implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String get_id() {
-		return _id;
+	public String getId() {
+		return id;
 	}
 
-	public void set_id(String _id) {
-		this._id = _id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
@@ -71,7 +70,7 @@ public class Cliente implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -84,10 +83,10 @@ public class Cliente implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		if (cpf == null) {
-			if (other.cpf != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!cpf.equals(other.cpf))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

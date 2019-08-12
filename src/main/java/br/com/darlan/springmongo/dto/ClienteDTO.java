@@ -1,10 +1,10 @@
-package br.com.darlan.springmongo;
+package br.com.darlan.springmongo.dto;
 
 import br.com.darlan.springmongo.domain.Cliente;
 
 public class ClienteDTO {
 
-	private String _id;
+	private String id;
 	private String nome;
 	private String cpf;
 	private String dataNascimento;
@@ -14,18 +14,18 @@ public class ClienteDTO {
 	}
 	
 	public ClienteDTO (Cliente cliente) {
-		this._id = cliente.get_id();
+		this.id = cliente.getId();
 		this.nome = cliente.getNome();
 		this.cpf = cliente.getCpf();
 		this.dataNascimento = cliente.getDataNascimento();
 	}
 
-	public String get_id() {
-		return _id;
+	public String getId() {
+		return id;
 	}
 
-	public void set_id(String _id) {
-		this._id = _id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getNome() {
