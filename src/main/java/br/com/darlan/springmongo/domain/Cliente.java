@@ -1,29 +1,39 @@
 package br.com.darlan.springmongo.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import br.com.darlan.springmongo.uteis.Util;
 
 @Document(collection = "cliente")
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String id;
+	private Integer id;
 	private String nome;
 	private String cpf;
-	private String dataNascimento;
+	private LocalDate dataNascimento;
 
 	public Cliente() {
 
 	}
 
-	public Cliente(String id, String nome, String cpf, String dataNascimento) {
+	public Cliente(Integer id, String nome, String cpf, String dataNascimento) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
+		this.dataNascimento = Util.toLocalDate(dataNascimento);
+	}
+	
+	public Cliente(Integer id, String nome, String cpf, LocalDate dataNascimento) {
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;		
 	}
 
 	public String getNome() {
@@ -42,19 +52,23 @@ public class Cliente implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public String getDataNascimento() {
-		return dataNascimento;
+	public  LocalDate getDataNascimento() {
+		return this.dataNascimento;
 	}
 
-	public void setDataNascimento(String dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {		
+		this.dataNascimento = Util.toLocalDate(dataNascimento);
+	}
+	
+	public void setDataNascimento(LocalDate dataNascimento) {		
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

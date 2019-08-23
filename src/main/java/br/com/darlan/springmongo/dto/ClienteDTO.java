@@ -1,13 +1,15 @@
 package br.com.darlan.springmongo.dto;
 
+import java.time.LocalDate;
+
 import br.com.darlan.springmongo.domain.Cliente;
 
 public class ClienteDTO {
 
-	private String id;
+	private Integer id;
 	private String nome;
 	private String cpf;
-	private String dataNascimento;
+	private LocalDate dataNascimento;
 	
 	public ClienteDTO() {
 		
@@ -20,11 +22,11 @@ public class ClienteDTO {
 		this.dataNascimento = cliente.getDataNascimento();
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -44,11 +46,11 @@ public class ClienteDTO {
 		this.cpf = cpf;
 	}
 
-	public String getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(String dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 	

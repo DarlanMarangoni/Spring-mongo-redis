@@ -35,27 +35,28 @@ public class ClienteResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<ClienteDTO> findById(@PathVariable String id){
+	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id){
 		Cliente cliente = service.findById(id);
 		return ResponseEntity.ok().body(new ClienteDTO(cliente));
 	}	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody ClienteDTO objDTO){
-		Cliente obj = service.fromDTO(objDTO);
+	public ResponseEntity<Void> insert(@RequestBody Cliente obj){
+		System.out.println(obj.getNome());
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteById(@PathVariable String id){
+	public ResponseEntity<Void> deleteById(@PathVariable Integer id){		
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody ClienteDTO objDTO){
+	public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody ClienteDTO objDTO){
+		System.out.println("atualizando");
 		Cliente obj = service.fromDTO(objDTO);
 		obj.setId(id);
 		obj = service.update(obj);

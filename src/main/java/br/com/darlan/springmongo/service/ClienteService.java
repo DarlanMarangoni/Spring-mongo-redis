@@ -21,36 +21,33 @@ public class ClienteService {
 	
 	@Cacheable(cacheNames = "clientes", key = "#root.method.name")
 	public List<Cliente> findAll(){
+		System.out.println("Listando todos Clientes");
 		return repo.findAll();
 	}
 	
-	public Cliente findById(String id) {
+	@Cacheable(cacheNames = "cliente", key = "#id")
+	public Cliente findById(Integer id) {
+		System.out.println("Buscando Cliente de id: " + id);
 		Optional<Cliente> cliente = repo.findById(id);
 		return cliente.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
 	
 	@CacheEvict(cacheNames = "clientes", allEntries = true)
 	public Cliente insert (Cliente obj) {
+		System.out.println("Inserindo Cliente no banco");
 		return repo.insert(obj);
 	}
 	
 	@CacheEvict(cacheNames = "clientes", allEntries = true)
-	public void delete (String id) {
-		findById(id);
+	public void delete (Integer id) {
+		System.out.println("deletando cliente " + id);
 		repo.deleteById(id);;
 	}
 	
-	@CacheEvict(cacheNames = "clientes", allEntries = true)
-	public Cliente update(Cliente obj) {
-		Cliente newObj = findById(obj.getId());
-		updateData(newObj, obj);
+	@CacheEvict(cacheNames = {"clientes", "cliente"}, allEntries = true)
+	public Cliente update(Cliente newObj) {
+		System.out.println("Atualizando cliente " + newObj.getId());
 		return repo.save(newObj);
-	}
-	
-	private void updateData(Cliente newObj, Cliente obj) {
-		newObj.setNome(obj.getNome());
-		newObj.setCpf(obj.getCpf());	
-		newObj.setDataNascimento(obj.getDataNascimento());
 	}
 
 	public Cliente fromDTO(ClienteDTO objDTO) {
